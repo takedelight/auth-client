@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { PropsWithChildren } from "react";
+import { Header } from "@/src/widgets/header";
+import { ThemeProvider } from "@/src/shared/ui";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -17,7 +19,16 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
   return (
     <html lang="en">
       <body className={`${inter.variable} flex h-screen flex-col antialiased`}>
-        <main className="flex-1">{children}</main>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Header />
+
+          <main className="flex-1">{children}</main>
+        </ThemeProvider>
       </body>
     </html>
   );
