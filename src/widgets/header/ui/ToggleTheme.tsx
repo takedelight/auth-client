@@ -1,10 +1,18 @@
 "use client";
+
+import { useIsClient } from "@/src/shared/hooks";
 import { Button } from "@/src/shared/ui";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
 export function ToggleTheme() {
   const { setTheme, theme } = useTheme();
+
+  const isClient = useIsClient();
+
+  if (!isClient) {
+    return null;
+  }
 
   return (
     <Button

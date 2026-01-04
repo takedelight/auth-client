@@ -13,11 +13,13 @@ import {
   FieldLabel,
 } from "@/src/shared/ui/field";
 import { Input } from "@/src/shared/ui/input";
+import Link from "next/link";
+import { loginAction } from "../model/login.action";
 
 export function LoginForm() {
   return (
     <div>
-      <Card className="w-75 sm:w-[500px]">
+      <Card className="w-75 sm:w-125">
         <CardHeader>
           <CardTitle>Login to your account</CardTitle>
           <CardDescription>
@@ -25,12 +27,13 @@ export function LoginForm() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form action={loginAction}>
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor="email">Email</FieldLabel>
                 <Input
                   id="email"
+                  name="email"
                   type="email"
                   placeholder="m@example.com"
                   required
@@ -39,20 +42,20 @@ export function LoginForm() {
               <Field>
                 <div className="flex items-center">
                   <FieldLabel htmlFor="password">Password</FieldLabel>
-                  <a
+                  <Link
                     href="#"
                     className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                   >
                     Forgot your password?
-                  </a>
+                  </Link>
                 </div>
-                <Input id="password" type="password" required />
+                <Input id="password" name="password" type="password" required />
               </Field>
               <Field>
                 <Button type="submit">Login</Button>
 
                 <FieldDescription className="text-center">
-                  Don&apos;t have an account? <a href="#">Sign up</a>
+                  Don&apos;t have an account? <Link href="#">Sign up</Link>
                 </FieldDescription>
               </Field>
             </FieldGroup>

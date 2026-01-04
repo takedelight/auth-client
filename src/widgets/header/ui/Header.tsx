@@ -3,6 +3,7 @@ import { ToggleTheme } from "./ToggleTheme";
 import { cookies } from "next/headers";
 import { cn } from "@/src/shared/lib";
 import { buttonVariants } from "@/src/shared/ui";
+import { PagesConfig } from "@/src/shared/configs";
 
 export async function Header() {
   const cookieStore = await cookies();
@@ -21,14 +22,14 @@ export async function Header() {
 
           {token ? (
             <Link
-              href="/profile"
+              href={PagesConfig.PROFILE_PAGE}
               className={cn(buttonVariants({ variant: "default" }))}
             >
               Profile
             </Link>
           ) : (
             <Link
-              href="/login"
+              href={PagesConfig.LOGIN_PAGE}
               className={cn(buttonVariants({ variant: "default" }))}
             >
               Login
