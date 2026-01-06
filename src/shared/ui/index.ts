@@ -1,4 +1,4 @@
-export { ThemeProvider } from "./theme-provider";
+export { ThemeProvider } from "../../../app/providers/theme-provider";
 export * from "./button";
 export * from "./card";
 export * from "./input";

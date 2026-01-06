@@ -3,7 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { PropsWithChildren } from "react";
 import { Header } from "@/src/widgets/header";
-import { ThemeProvider } from "@/src/shared/ui";
+import { QueryProvider } from "./providers/query-provider";
+import { ThemeProvider } from "./providers/theme-provider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -25,9 +26,11 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
+          <QueryProvider>
+            <Header />
 
-          <main className="flex-1">{children}</main>
+            <main className="flex-1">{children}</main>
+          </QueryProvider>
         </ThemeProvider>
       </body>
     </html>
