@@ -45,13 +45,13 @@ export function EditProfileForm({ email, username }: Props) {
 
   return (
     <form
-      className="mt-2"
+      className="mt-2 flex flex-col gap-2 "
       onSubmit={(e) => {
         e.preventDefault();
         updateUserMutation.mutate();
       }}
     >
-      <FieldGroup className="gap-2">
+      <FieldGroup className="gap-2 flex flex-row">
         <Field className="gap-1">
           <FieldLabel htmlFor="email">Email</FieldLabel>
           <Input
@@ -77,16 +77,13 @@ export function EditProfileForm({ email, username }: Props) {
             required
           />
         </Field>
-
-        <Field>
-          <Button
-            type="submit"
-            disabled={updateUserMutation.isPending || isDisabled}
-          >
-            {updateUserMutation.isPending ? "Updating..." : "Update"}
-          </Button>
-        </Field>
       </FieldGroup>
+      <Button
+        type="submit"
+        disabled={updateUserMutation.isPending || isDisabled}
+      >
+        {updateUserMutation.isPending ? "Updating..." : "Update"}
+      </Button>
     </form>
   );
 }
