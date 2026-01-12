@@ -23,7 +23,7 @@ export function LogoutButton() {
       onClick={() => logoutMutation.mutate()}
       disabled={logoutMutation.isPending}
       variant="ghost"
-      className="flex w-full  justify-normal  rounded-none items-center gap-1"
+      className="flex  transition-colors ease-in-out duration-150 hover:bg-red-300/20 hover:text-red-500 dark:hover:bg-red-300/20 dark:hover:text-red-500 [&>svg]: items-center gap-1"
     >
       <LogOut /> Logout
     </Button>
