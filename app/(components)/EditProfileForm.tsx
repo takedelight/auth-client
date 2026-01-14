@@ -1,33 +1,34 @@
 "use client";
 
-import { Button, Field, FieldGroup, FieldLabel, Input } from "@/src/shared/ui";
+import {
+  Button,
+  Field,
+  FieldGroup,
+  FieldLabel,
+  Input,
+  Spinner,
+} from "@/src/shared/ui";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
 
 interface Props {
-  email: string;
-  firstname: string;
-  lastname?: string;
+  firstName: string;
+  lastName?: string;
 }
 
-export function EditProfileForm({
-  email,
-  firstname = "",
-  lastname = "",
-}: Props) {
+export function EditProfileForm({ firstName = "", lastName = "" }: Props) {
   const [profile, setProfile] = useState({
-    email,
-    firstname,
-    lastname,
+    firstName,
+    lastName,
   });
+
+  const router = useRouter();
 
   const [passwords, setPasswords] = useState({
     currentPassword: "",
     newPassword: "",
   });
-
-  const router = useRouter();
 
   function handleProfileUpdate(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
@@ -40,9 +41,7 @@ export function EditProfileForm({
   }
 
   const isProfileChanged =
-    profile.email !== email ||
-    profile.firstname !== firstname ||
-    profile.lastname !== lastname;
+    profile.firstName !== firstName || profile.lastName !== lastName;
 
   const isPasswordEntered =
     passwords.currentPassword.length > 0 || passwords.newPassword.length > 0;
@@ -52,19 +51,24 @@ export function EditProfileForm({
   const updateUserMutation = useMutation({
     mutationKey: ["update-user"],
     mutationFn: async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/me`, {
+      const res = await fetch("/api/profile/update", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: JSON.stringify(profile),
       });
 
-      if (!res.ok) throw new Error("Failed to update profile");
+      const text = await res.text();
+      console.log(res.status, text);
+
+      if (!res.ok) {
+        throw new Error(text || `HTTP ${res.status}`);
+      }
     },
+
     onError: (error) => console.error(error),
     onSuccess: () => {
       router.refresh();
-      setPasswords({ currentPassword: "", newPassword: "" });
     },
   });
 
@@ -89,8 +93,8 @@ export function EditProfileForm({
             <FieldLabel htmlFor="firstname">First Name</FieldLabel>
             <Input
               id="firstname"
-              name="firstname"
-              value={profile.firstname}
+              name="firstName"
+              value={profile.firstName}
               onChange={handleProfileUpdate}
               type="text"
               placeholder="John"
@@ -101,8 +105,8 @@ export function EditProfileForm({
             <FieldLabel htmlFor="lastname">Last Name</FieldLabel>
             <Input
               id="lastname"
-              name="lastname"
-              value={profile.lastname}
+              name="lastName"
+              value={profile.lastName}
               onChange={handleProfileUpdate}
               type="text"
               placeholder="Doe"
@@ -154,8 +158,16 @@ export function EditProfileForm({
         <Button
           type="submit"
           disabled={updateUserMutation.isPending || isDisabled}
+          className="relative"
         >
-          {updateUserMutation.isPending ? "Updating..." : "Save Changes"}
+          <span className={updateUserMutation.isPending ? "opacity-0" : ""}>
+            Save Changes
+          </span>
+          {updateUserMutation.isPending && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <Spinner className="text-white" />
+            </div>
+          )}
         </Button>
       </div>
     </form>

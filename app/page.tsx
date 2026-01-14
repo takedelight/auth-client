@@ -1,5 +1,3 @@
-"use client";
-
 import { EditProfileForm } from "./(components)/EditProfileForm";
 import { LogoutButton } from "./(components)/LogoutButton";
 import {
@@ -19,6 +17,7 @@ import { FaChrome, FaFirefox, FaEdge, FaSafari } from "react-icons/fa";
 import { DeleteSessionButton } from "./(components)/DeleteSessionButton";
 import { useQuery } from "@tanstack/react-query";
 import { Trash2 } from "lucide-react";
+import { cookies } from "next/headers";
 
 interface Profile {
   id: string;
@@ -32,10 +31,18 @@ interface Profile {
 }
 
 async function fetchProfile(): Promise<Profile> {
+  const cookieStore = await cookies();
+
+  const token = cookieStore.get("sid")?.value;
+
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/me`, {
     method: "GET",
-    cache: "no-cache",
+    cache: "no-store",
     credentials: "include",
+    headers: {
+      Cookie: `sid=${token}`,
+      "Content-Type": "application/json",
+    },
   });
 
   if (!res.ok) {
@@ -45,18 +52,8 @@ async function fetchProfile(): Promise<Profile> {
   return res.json();
 }
 
-export default function ProfilePage() {
-  const {
-    data: profile,
-    isLoading,
-    isError,
-  } = useQuery<Profile>({
-    queryKey: ["profile"],
-    queryFn: fetchProfile,
-  });
-
-  if (isLoading) return <p>Loading...</p>;
-  if (isError || !profile) return <p>Failed to load profile</p>;
+export default async function ProfilePage() {
+  const profile = await fetchProfile();
 
   function getBrowserIcon(name: string) {
     switch (name) {
@@ -102,8 +99,8 @@ export default function ProfilePage() {
           <div className="border p-2 rounded-md">
             <EditProfileForm
               email={profile.email}
-              lastname={profile.lastName}
-              firstname={profile.firstName}
+              lastName={profile.lastName}
+              firstName={profile.firstName}
             />
           </div>
 
