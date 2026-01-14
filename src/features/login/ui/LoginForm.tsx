@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/src/shared/ui/button";
 import {
   Card,
@@ -13,10 +15,45 @@ import {
   FieldLabel,
 } from "@/src/shared/ui/field";
 import { Input } from "@/src/shared/ui/input";
+import { useMutation } from "@tanstack/react-query";
 import Link from "next/link";
-import { loginAction } from "../model/login.action";
+import { useRouter } from "next/navigation";
+import { ChangeEvent, useState } from "react";
 
 export function LoginForm() {
+  const [credentials, setCredentials] = useState({ email: "", password: "" });
+
+  const router = useRouter();
+
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target;
+
+    setCredentials((prev) => ({ ...prev, [name]: value }));
+  }
+
+  const loginMutation = useMutation({
+    mutationKey: ["login"],
+    mutationFn: async () => {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+        method: "POST",
+        body: JSON.stringify(credentials),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to login");
+      }
+    },
+    onError: (error) => console.error(error),
+    onSuccess: () => {
+      router.refresh();
+      router.push("/");
+    },
+  });
+
   return (
     <div>
       <Card className="w-75 sm:w-125">
@@ -27,11 +64,13 @@ export function LoginForm() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form action={loginAction}>
+          <form>
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor="email">Email</FieldLabel>
                 <Input
+                  value={credentials.email}
+                  onChange={handleChange}
                   id="email"
                   name="email"
                   type="email"
@@ -49,10 +88,19 @@ export function LoginForm() {
                     Forgot your password?
                   </Link>
                 </div>
-                <Input id="password" name="password" type="password" required />
+                <Input
+                  id="password"
+                  name="password"
+                  type="password"
+                  value={credentials.password}
+                  onChange={handleChange}
+                  required
+                />
               </Field>
               <Field>
-                <Button type="submit">Login</Button>
+                <Button onClick={() => loginMutation.mutate()} type="button">
+                  Login
+                </Button>
 
                 <FieldDescription className="text-center">
                   Don&apos;t have an account? <Link href="#">Sign up</Link>

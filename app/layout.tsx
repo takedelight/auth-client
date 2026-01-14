@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} flex h-screen flex-col antialiased`}>
+      <body className={`${inter.variable} flex h-[89vh] flex-col antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

@@ -5,3 +5,6 @@ export * from "./label";
 export * from "./separator";
 export * from "./field";
 export * from "./avatar";
+export * from "./dialog";
+export * from "./spinner";
+export * from "./switch";
