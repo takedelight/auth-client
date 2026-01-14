@@ -20,14 +20,7 @@ export async function Header() {
         <div className="flex items-center gap-2">
           <ToggleTheme />
 
-          {token ? (
-            <Link
-              href={PagesConfig.PROFILE_PAGE}
-              className={cn(buttonVariants({ variant: "default" }))}
-            >
-              Profile
-            </Link>
-          ) : (
+          {!token && (
             <Link
               href={PagesConfig.LOGIN_PAGE}
               className={cn(buttonVariants({ variant: "default" }))}
