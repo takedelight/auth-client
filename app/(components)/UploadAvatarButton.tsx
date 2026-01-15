@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/src/shared/ui";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { Camera, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useRef } from "react";
@@ -13,7 +13,6 @@ export function UploadAvatarButton() {
   const handleButtonClick = () => {
     fileInputRef.current?.click();
   };
-  const queryClient = useQueryClient();
 
   const updateAvatar = useMutation({
     mutationKey: ["updateAvatar"],
@@ -33,7 +32,7 @@ export function UploadAvatarButton() {
       if (!res.ok) throw new Error("Failed to update avatar");
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["profile"] });
+      router.refresh();
     },
   });
 
