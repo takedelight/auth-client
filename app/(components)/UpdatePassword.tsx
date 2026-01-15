@@ -45,6 +45,11 @@ export function UpdatePassword() {
           body: JSON.stringify(passwords),
         },
       );
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.message || "Failed to update password");
+      }
     },
 
     onSuccess: () => {
@@ -54,9 +59,12 @@ export function UpdatePassword() {
       });
       toast.success("Password updated successfully");
     },
+    onError: (error) => {
+      toast.error(error.message);
+    },
   });
   return (
-    <div className="flex border p-2 flex-col gap-4">
+    <div className="flex border  rounded-md p-2 flex-col gap-4">
       <div>
         <h3 className="text-lg font-medium leading-none">Update Password</h3>
         <p className="text-sm text-muted-foreground ">
@@ -73,8 +81,6 @@ export function UpdatePassword() {
             value={passwords.currentPassword}
             onChange={handlePasswordUpdate}
             type="password"
-            placeholder="•••••••"
-            autoComplete="current-password"
           />
         </Field>
 
@@ -86,8 +92,6 @@ export function UpdatePassword() {
             value={passwords.newPassword}
             onChange={handlePasswordUpdate}
             type="password"
-            placeholder="•••••••"
-            autoComplete="new-password"
           />
         </Field>
       </FieldGroup>

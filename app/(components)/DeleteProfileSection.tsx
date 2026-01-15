@@ -8,12 +8,12 @@ interface Props {
 export function DeleteProfileSection({ userId }: Props) {
   return (
     <div className="border p-2 rounded-md">
-      <h3 className="text-lg font-semibold mb-2">Delete account</h3>
-      <p className="text-sm text-muted-foreground mt-1">
+      <h3 className="text-lg font-semibold ">Delete account</h3>
+      <p className="text-sm text-muted-foreground">
         Once you delete your account, there is no going back. Please be certain.
       </p>
 
-      <Button variant="destructive">
+      <Button className="mt-2" variant="destructive">
         <Trash2 />
         Delete
       </Button>

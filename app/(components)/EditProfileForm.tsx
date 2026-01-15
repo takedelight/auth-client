@@ -20,7 +20,7 @@ interface Props {
 export function EditProfileForm({ firstName = "", lastName = "" }: Props) {
   const [profile, setProfile] = useState({
     firstName,
-    lastName,
+    lastName: lastName || "",
   });
 
   const router = useRouter();
@@ -84,7 +84,6 @@ export function EditProfileForm({ firstName = "", lastName = "" }: Props) {
                 value={profile.firstName}
                 onChange={handleProfileUpdate}
                 type="text"
-                placeholder="John"
               />
             </Field>
 
@@ -96,7 +95,6 @@ export function EditProfileForm({ firstName = "", lastName = "" }: Props) {
                 value={profile.lastName}
                 onChange={handleProfileUpdate}
                 type="text"
-                placeholder="Doe"
               />
             </Field>
           </FieldGroup>

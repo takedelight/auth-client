@@ -30,7 +30,7 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
           disableTransitionOnChange
         >
           <QueryProvider>
-            <Toaster />
+            <Toaster closeButton  />
             <Header />
 
             <main className="flex-1">{children}</main>
