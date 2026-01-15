@@ -17,8 +17,9 @@ import {
 import { Input } from "@/src/shared/ui/input";
 import { useMutation } from "@tanstack/react-query";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
+import { toast } from "sonner";
 
 export function LoginForm() {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
@@ -34,7 +35,7 @@ export function LoginForm() {
   const loginMutation = useMutation({
     mutationKey: ["login"],
     mutationFn: async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+      const res = await fetch(`/api/auth/login`, {
         method: "POST",
         body: JSON.stringify(credentials),
         headers: {
@@ -47,10 +48,16 @@ export function LoginForm() {
         throw new Error("Failed to login");
       }
     },
-    onError: (error) => console.error(error),
+    onError: (error) => {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
+    },
     onSuccess: () => {
       router.refresh();
       router.push("/");
+
+      toast.success("Login successful");
     },
   });
 

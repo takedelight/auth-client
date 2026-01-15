@@ -5,6 +5,8 @@ import { cn } from "@/src/shared/lib";
 import { buttonVariants } from "@/src/shared/ui";
 import { PagesConfig } from "@/src/shared/configs";
 
+export const dynamic = "force-dynamic";
+
 export async function Header() {
   const cookieStore = await cookies();
 

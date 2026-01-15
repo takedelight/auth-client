@@ -4,9 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function PATCH(req: NextRequest) {
   const { firstName, lastName } = await req.json();
 
-  console.log(firstName, lastName);
-
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/me`, {
+  const res = await fetch(`${process.env.API_URL}/user/me`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

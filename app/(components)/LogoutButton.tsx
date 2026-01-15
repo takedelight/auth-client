@@ -4,6 +4,7 @@ import { Button } from "@/src/shared/ui";
 import { useMutation } from "@tanstack/react-query";
 import { LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export function LogoutButton() {
   const router = useRouter();
@@ -11,12 +12,15 @@ export function LogoutButton() {
   const logoutMutation = useMutation({
     mutationKey: ["logout"],
     mutationFn: async () => {
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
+      await fetch(`api/auth/logout`, {
         method: "POST",
         credentials: "include",
       });
     },
-    onSuccess: () => router.push("/"),
+    onSuccess: () => {
+      router.push("/");
+      toast.success("Logout successful");
+    },
   });
   return (
     <Button

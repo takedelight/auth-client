@@ -8,3 +8,4 @@ export * from "./avatar";
 export * from "./dialog";
 export * from "./spinner";
 export * from "./switch";
+export * from "./sonner";

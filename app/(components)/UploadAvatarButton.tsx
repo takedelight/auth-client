@@ -20,14 +20,11 @@ export function UploadAvatarButton() {
       const formData = new FormData();
       formData.append("file", file);
 
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/avatar`,
-        {
-          method: "PATCH",
-          body: formData,
-          credentials: "include",
-        },
-      );
+      const res = await fetch(`/api/profile/upload-avatar`, {
+        method: "PATCH",
+        body: formData,
+        credentials: "include",
+      });
 
       if (!res.ok) throw new Error("Failed to update avatar");
     },

@@ -46,7 +46,6 @@ export function EditProfileForm({ firstName = "", lastName = "" }: Props) {
       });
 
       const text = await res.text();
-      console.log(res.status, text);
 
       if (!res.ok) {
         throw new Error(text || `HTTP ${res.status}`);
@@ -77,7 +76,7 @@ export function EditProfileForm({ firstName = "", lastName = "" }: Props) {
           </div>
 
           <FieldGroup className="grid  gap-5 grid-cols-2">
-            <Field className="gap">
+            <Field className="gap-1">
               <FieldLabel htmlFor="firstname">First Name</FieldLabel>
               <Input
                 id="firstname"
@@ -89,7 +88,7 @@ export function EditProfileForm({ firstName = "", lastName = "" }: Props) {
               />
             </Field>
 
-            <Field className="gap">
+            <Field className="gap-1">
               <FieldLabel htmlFor="lastname">Last Name</FieldLabel>
               <Input
                 id="lastname"
@@ -103,7 +102,7 @@ export function EditProfileForm({ firstName = "", lastName = "" }: Props) {
           </FieldGroup>
         </div>
 
-        <div className="flex justify-end pt-2">
+        <div className="flex justify-end ">
           <Button
             type="submit"
             disabled={updateUserMutation.isPending || isDisabled}

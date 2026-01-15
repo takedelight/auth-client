@@ -5,6 +5,9 @@ import { PropsWithChildren } from "react";
 import { Header } from "@/src/widgets/header";
 import { QueryProvider } from "./providers/query-provider";
 import { ThemeProvider } from "./providers/theme-provider";
+import { Toaster } from "@/src/shared/ui";
+
+export const dynamic = "force-dynamic";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -27,6 +30,7 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
           disableTransitionOnChange
         >
           <QueryProvider>
+            <Toaster />
             <Header />
 
             <main className="flex-1">{children}</main>

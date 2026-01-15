@@ -10,6 +10,7 @@ import {
 } from "@/src/shared/ui";
 import { useMutation } from "@tanstack/react-query";
 import { ChangeEvent, useState } from "react";
+import { toast } from "sonner";
 
 export function UpdatePassword() {
   const [passwords, setPasswords] = useState({
@@ -44,6 +45,14 @@ export function UpdatePassword() {
           body: JSON.stringify(passwords),
         },
       );
+    },
+
+    onSuccess: () => {
+      setPasswords({
+        currentPassword: "",
+        newPassword: "",
+      });
+      toast.success("Password updated successfully");
     },
   });
   return (
