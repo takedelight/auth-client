@@ -4,6 +4,7 @@ import { Button, Spinner } from "@/src/shared/ui";
 import { useMutation } from "@tanstack/react-query";
 import { LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface Props {
   sessionId: string;
@@ -15,17 +16,23 @@ export function DeleteSessionButton({ sessionId }: Props) {
   const deleteSessionMutation = useMutation({
     mutationKey: ["delete-session"],
     mutationFn: async () => {
-      await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/session/delete/${sessionId}`,
-        {
-          method: "DELETE",
-          credentials: "include",
-        },
-      );
+      const res = await fetch(`api/session/delete/${sessionId}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message);
+      }
+
+      return data;
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       router.refresh();
       router.push("/");
+      toast.success(data.message);
     },
   });
   return (
@@ -33,14 +40,13 @@ export function DeleteSessionButton({ sessionId }: Props) {
       variant="ghost"
       size="icon"
       onClick={() => deleteSessionMutation.mutate()}
-      title="Завершити сесію"
       disabled={deleteSessionMutation.isPending}
-      className="hover:bg-red-800/30! transition-colors ease-in-out duration-150"
+      className="hover:bg-red-400/50!  hover:text-white transition-colors ease-in-out duration-150"
     >
       {deleteSessionMutation.isPending ? (
         <Spinner className="text-white" />
       ) : (
-        <LogOut className="size-5   " />
+        <LogOut className="size-5" />
       )}
     </Button>
   );

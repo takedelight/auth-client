@@ -1,7 +1,6 @@
 import { EditProfileForm } from "./(components)/EditProfileForm";
 import { LogoutButton } from "./(components)/LogoutButton";
 import {
-  Button,
   Card,
   CardContent,
   CardDescription,
@@ -11,20 +10,20 @@ import {
 } from "@/src/shared/ui";
 import { UserAvatar } from "./(components)/Avatar";
 
-import { DeleteSessionButton } from "./(components)/DeleteSessionButton";
-import { Trash2 } from "lucide-react";
 import { cookies } from "next/headers";
-import { SecuritySession } from "./(components)/SecuritySession";
 import { Profile } from "./(types)/profile.type";
 import { DeleteProfileSection } from "./(components)/DeleteProfileSection";
 import { SessionList } from "./(components)/SessionList";
 import { UpdatePassword } from "./(components)/UpdatePassword";
-import { TwoFactorAuth } from "./(components)/TwoFactorAuth";
+import { redirect } from "next/navigation";
+import { PagesConfig } from "@/src/shared/configs";
 
 async function fetchProfile(): Promise<Profile> {
   const cookieStore = await cookies();
 
   const token = cookieStore.get("sid")?.value;
+
+  console.log(token);
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/me`, {
     method: "GET",
@@ -37,7 +36,9 @@ async function fetchProfile(): Promise<Profile> {
   });
 
   if (!res.ok) {
-    throw new Error("Failed to fetch profile");
+   if(res.status === 401){
+    redirect(PagesConfig.LOGIN_PAGE)
+   }
   }
 
   return res.json();
@@ -81,8 +82,6 @@ export default async function ProfilePage() {
             <UpdatePassword />
 
             <SessionList sessions={profile.sessions} />
-
-            <TwoFactorAuth />
 
             <DeleteProfileSection userId={profile.id} />
           </CardContent>

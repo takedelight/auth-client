@@ -17,7 +17,7 @@ import {
 import { Input } from "@/src/shared/ui/input";
 import { useMutation } from "@tanstack/react-query";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
 import { toast } from "sonner";
 

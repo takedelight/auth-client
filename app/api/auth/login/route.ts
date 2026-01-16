@@ -1,25 +1,25 @@
-import { redirect } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const { email, password } = await req.json();
+  const body = await req.json();
+  const userAgent = req.headers.get("user-agent") || "";
 
-  const userAgent = req.headers.get("user-agent");
-
-  const response = await fetch(`${process.env.API_URL}/auth/login`, {
+  const backendResponse = await fetch(`${process.env.API_URL}/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email, password, userAgent }),
+    body: JSON.stringify({ ...body, userAgent }),
   });
 
-  const setCokkie = response.headers.get("Set-Cookie");
+  const data = await backendResponse.json();
 
-  const res = NextResponse.json({ ok: true });
+  const res = NextResponse.json(data, { status: backendResponse.status });
 
-  if (setCokkie) {
-    res.headers.set("set-cookie", setCokkie);
+  const setCookieHeader = backendResponse.headers.get("set-cookie");
+
+  if (setCookieHeader) {
+    res.headers.set("set-cookie", setCookieHeader);
   }
 
   return res;
