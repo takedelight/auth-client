@@ -1,4 +1,4 @@
-import { useRegisterForm } from "@/hooks/useRegisterForm"
+import { useRegisterForm } from "@/features/register/model/useRegisterForm"
 import {
   Field,
   FieldDescription,
@@ -7,8 +7,8 @@ import {
   FieldLegend,
   FieldSet,
   FieldTitle,
-} from "./ui/field"
-import { Input } from "./ui/input"
+  Input,
+} from "@/shared/ui"
 
 export const PersonStep = () => {
   const { functions, values } = useRegisterForm()

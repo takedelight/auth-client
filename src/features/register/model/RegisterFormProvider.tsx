@@ -4,7 +4,7 @@ import {
   RegisterFormContext,
   type Steps,
   type UserData,
-} from "@/context/form.context"
+} from "@/features/register/model/form.context"
 import { useState, type PropsWithChildren } from "react"
 
 export const RegisterFormProvider = ({ children }: PropsWithChildren) => {

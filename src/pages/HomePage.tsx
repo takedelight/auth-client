@@ -1,5 +1,5 @@
-import { RegisterCard } from "@/components/RegisterCard"
-import { RegisterFormProvider } from "@/providers/RegisterFormProvider"
+import { RegisterCard } from "@/features/register/ui/RegisterCard"
+import { RegisterFormProvider } from "@/features/register/model/RegisterFormProvider"
 
 export const HomePage = () => {
   return (

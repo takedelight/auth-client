@@ -1,8 +1,7 @@
-import type { Steps } from "@/context/form.context"
-import { useRegisterForm } from "@/hooks/useRegisterForm"
-import { cn } from "@/lib/utils"
-import { Button } from "./ui/button"
-
+import type { Steps } from "@/features/register/model/form.context"
+import { useRegisterForm } from "@/features/register/model/useRegisterForm"
+import { cn } from "@/shared/lib/utils"
+import { Button } from "@/shared/ui"
 export const StepsCounter = () => {
   const { functions, values } = useRegisterForm()
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { RegisterFormContext } from "@/context/form.context"
+import { RegisterFormContext } from "@/features/register/model/form.context"
 import { use } from "react"
 
 export const useRegisterForm = () => {

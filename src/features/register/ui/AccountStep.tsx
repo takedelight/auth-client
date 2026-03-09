@@ -1,7 +1,6 @@
-import { useRegisterForm } from "@/hooks/useRegisterForm"
-import { RiGithubFill, RiGoogleFill } from "@remixicon/react"
-import { Button } from "./ui/button"
+import { useRegisterForm } from "@/features/register/model/useRegisterForm"
 import {
+  Button,
   Field,
   FieldDescription,
   FieldGroup,
@@ -9,8 +8,9 @@ import {
   FieldLegend,
   FieldSet,
   FieldTitle,
-} from "./ui/field"
-import { Input } from "./ui/input"
+  Input,
+} from "@/shared/ui"
+import { RiGithubFill, RiGoogleFill } from "@remixicon/react"
 
 export const AccountStep = () => {
   const { functions, values } = useRegisterForm()

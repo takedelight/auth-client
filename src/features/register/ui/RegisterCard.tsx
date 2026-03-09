@@ -1,9 +1,9 @@
 import { useRegisterForm } from "@/features/register/model/useRegisterForm"
-import { StepsCounter } from "@/features/register/ui/StepsCounter"
 import { Button, Card, CardContent, CardFooter, CardHeader } from "@/shared/ui"
-import { AccountStep } from "../features/register/ui/AccountStep"
-import { FinishStep } from "../features/register/ui/FinishStep"
-import { PersonStep } from "../features/register/ui/PersonStep"
+import { AccountStep } from "./AccountStep"
+import { FinishStep } from "./FinishStep"
+import { PersonStep } from "./PersonStep"
+import { StepsCounter } from "./StepsCounter"
 
 export const RegisterCard = () => {
   const { functions, values } = useRegisterForm()
