@@ -23,7 +23,7 @@ export const AccountStep = () => {
           </h2>
         </FieldTitle>
         <FieldDescription className="text-sm text-muted-foreground/90">
-            Input your email address and password to create an account
+          Input your email address and password to create an account
         </FieldDescription>
       </FieldLegend>
 
@@ -50,10 +50,10 @@ export const AccountStep = () => {
       </div>
 
       <FieldGroup className="grid gap-5">
-        <Field className="flex flex-col gap-2">
+        <Field className="flex flex-col gap-1">
           <FieldLabel
             htmlFor="email"
-            className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            className="text-sm leading-none font-medium"
           >
             Email address
           </FieldLabel>
@@ -68,12 +68,18 @@ export const AccountStep = () => {
           />
         </Field>
 
-        <Field className="flex flex-col gap-2">
+        <Field className="flex flex-col gap-1">
           <FieldLabel
             htmlFor="password"
-            className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            className="flex justify-between text-sm leading-none font-medium"
           >
             Password
+            <a
+              className="text-muted-foreground transition-all duration-150 ease-in-out hover:text-black hover:underline"
+              href="/forgot-password"
+            >
+              Forgot your password ?
+            </a>
           </FieldLabel>
           <Input
             id="password"
