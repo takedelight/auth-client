@@ -1,12 +1,13 @@
 import { createContext } from "react"
 
-export type Steps = 1 | 2 | 3
+export type Steps = 1 | 2 | 3 | 4
 
 export interface UserData {
   email: string
   password: string
   firstName: string
   lastName: string
+  authType: string
 }
 
 interface RegisterFormContext {

@@ -14,6 +14,7 @@ export const RegisterFormProvider = ({ children }: PropsWithChildren) => {
     password: "",
     firstName: "",
     lastName: "",
+    authType: "",
   })
 
   const setUserData = (key: keyof UserData, value: string) => {

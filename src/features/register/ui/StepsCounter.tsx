@@ -1,18 +1,23 @@
+"use client"
+
 import type { Steps } from "@/features/register/model/form.context"
 import { useRegisterForm } from "@/features/register/model/useRegisterForm"
 import { cn } from "@/shared/lib/utils"
 import { Button } from "@/shared/ui"
+
 export const StepsCounter = () => {
   const { functions, values } = useRegisterForm()
 
-  const isStep1Valid = values.user.email !== "" && values.user.password !== ""
-  const isStep2Valid =
+  const isStep1Valid = !!values.user.authType
+  const isStep2Valid = values.user.email !== "" && values.user.password !== ""
+  const isStep3Valid =
     values.user.firstName !== "" && values.user.lastName !== ""
 
   const steps = [
-    { id: 1, label: "Account info" },
-    { id: 2, label: "Person info" },
-    { id: 3, label: "Finish" },
+    { id: 1, label: "Auth type" },
+    { id: 2, label: "Account info" },
+    { id: 3, label: "Person info" },
+    { id: 4, label: "Finish" },
   ]
 
   return (
@@ -23,7 +28,10 @@ export const StepsCounter = () => {
 
         const isDisabled =
           (step.id === 2 && !isStep1Valid) ||
-          (step.id === 3 && (!isStep1Valid || !isStep2Valid))
+          (step.id === 3 && (!isStep1Valid || !isStep2Valid)) ||
+          (step.id === 4 &&
+            (!isStep1Valid || !isStep2Valid || !isStep3Valid)) ||
+          step.id > values.step + 1
 
         return (
           <div

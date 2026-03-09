@@ -21,10 +21,8 @@ export const PersonStep = () => {
               Step 2: Person info
             </h2>
           </FieldTitle>
-          <FieldDescription>
-            <p className="text-sm text-muted-foreground/90">
-              Input your personal information
-            </p>
+          <FieldDescription className="text-sm text-muted-foreground/90">
+            Input your personal information
           </FieldDescription>
         </FieldLegend>
 

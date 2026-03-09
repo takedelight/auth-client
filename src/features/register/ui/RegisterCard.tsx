@@ -1,6 +1,7 @@
 import { useRegisterForm } from "@/features/register/model/useRegisterForm"
 import { Button, Card, CardContent, CardFooter, CardHeader } from "@/shared/ui"
 import { AccountStep } from "./AccountStep"
+import { AuthTypeStep } from "./AuthTypeStep"
 import { FinishStep } from "./FinishStep"
 import { PersonStep } from "./PersonStep"
 import { StepsCounter } from "./StepsCounter"
@@ -8,34 +9,17 @@ import { StepsCounter } from "./StepsCounter"
 export const RegisterCard = () => {
   const { functions, values } = useRegisterForm()
 
-  const STEPS = [AccountStep, PersonStep, FinishStep]
+  const STEPS = [AuthTypeStep, AccountStep, PersonStep, FinishStep]
+
+  const isAuthTypeDisabled = values.step === 1 && !values.user.authType
 
   const isAccountStepDisabled =
-    values.step === 1 &&
+    values.step === 2 &&
     (values.user.email === "" || values.user.password === "")
 
   const isPersonStepDisabled =
-    values.step === 2 &&
+    values.step === 3 &&
     (values.user.firstName === "" || values.user.lastName === "")
-
-  const handleStep = async () => {
-    if (isAccountStepDisabled) return
-
-    if (values.step === 1) {
-      const res = await fetch(
-        `http://localhost:5000/user/email-is-taken/${values.user.email}`
-      )
-
-      const data = await res.json()
-
-      if (res.status === 409) {
-        console.error(data.message)
-        return
-      }
-    }
-
-    functions.next()
-  }
 
   const Step = STEPS[values.step - 1]
   return (
@@ -61,18 +45,29 @@ export const RegisterCard = () => {
             Prev
           </Button>
 
-          <Button
-            disabled={
-              values.step === STEPS.length ||
-              isAccountStepDisabled ||
-              isPersonStepDisabled
-            }
-            onClick={handleStep}
-            size="lg"
-            className="px-8"
-          >
-            Next
-          </Button>
+          {values.step < 4 ? (
+            <Button
+              disabled={
+                isAuthTypeDisabled ||
+                values.step === STEPS.length ||
+                isAccountStepDisabled ||
+                isPersonStepDisabled
+              }
+              onClick={functions.next}
+              size="lg"
+              className="px-8"
+            >
+              Next
+            </Button>
+          ) : (
+            <Button
+              onClick={() => console.log(values.user)}
+              size="lg"
+              className="px-8"
+            >
+              Register
+            </Button>
+          )}
         </div>
       </CardFooter>
     </Card>

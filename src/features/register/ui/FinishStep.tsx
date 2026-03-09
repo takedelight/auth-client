@@ -23,11 +23,8 @@ export const FinishStep = () => {
               Step 3: Finish Step
             </h2>
           </FieldTitle>
-          <FieldDescription>
-            <p className="text-sm text-muted-foreground/90">
-              Check your information and submit the form to complete the
-              process.
-            </p>
+          <FieldDescription className="text-sm text-muted-foreground/90">
+            Check your information and submit the form to complete the process.
           </FieldDescription>
         </FieldLegend>
 
@@ -35,7 +32,7 @@ export const FinishStep = () => {
           <Field className="flex flex-col gap-1">
             <FieldLabel
               htmlFor="email"
-              className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              className="text-sm leading-none font-medium"
             >
               Email
             </FieldLabel>
@@ -52,7 +49,7 @@ export const FinishStep = () => {
           <Field className="flex flex-col gap-1">
             <FieldLabel
               htmlFor="password"
-              className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              className="text-sm leading-none font-medium"
             >
               Password
             </FieldLabel>
@@ -72,7 +69,7 @@ export const FinishStep = () => {
             <Field className="flex flex-col gap-1">
               <FieldLabel
                 htmlFor="firstname"
-                className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                className="text-sm leading-none font-medium"
               >
                 Firstname
               </FieldLabel>
@@ -91,7 +88,7 @@ export const FinishStep = () => {
             <Field className="flex flex-col gap-1">
               <FieldLabel
                 htmlFor="lastname"
-                className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                className="text-sm leading-none font-medium"
               >
                 Lastname
               </FieldLabel>
