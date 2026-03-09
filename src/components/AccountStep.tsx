@@ -1,3 +1,4 @@
+import { useRegisterForm } from "@/hooks/useRegisterForm"
 import { RiGithubFill, RiGoogleFill } from "@remixicon/react"
 import { Button } from "./ui/button"
 import {
@@ -12,22 +13,20 @@ import {
 import { Input } from "./ui/input"
 
 export const AccountStep = () => {
+  const { functions, values } = useRegisterForm()
   return (
-    <FieldSet className="animate-in duration-500 slide-in-from-top-10 fade-in">
+    <FieldSet className="animate-in duration-500 slide-in-from-right-10 fade-in">
       <FieldLegend className="mb-8 space-y-1">
         <FieldTitle>
           <h2 className="text-2xl font-bold tracking-tight text-foreground">
             Step 1: Account info
           </h2>
         </FieldTitle>
-        <FieldDescription>
-          <p className="text-sm text-muted-foreground/90">
+        <FieldDescription className="text-sm text-muted-foreground/90">
             Input your email address and password to create an account
-          </p>
         </FieldDescription>
       </FieldLegend>
 
-      {/* Кнопки oAuth */}
       <div className="grid grid-cols-2 gap-4">
         <Button variant="outline" className="h-11 gap-2 font-medium">
           <RiGoogleFill className="size-6" />
@@ -60,9 +59,12 @@ export const AccountStep = () => {
           </FieldLabel>
           <Input
             id="email"
+            value={values.user.email}
+            name="email"
+            onChange={(e) => functions.setUserData("email", e.target.value)}
             type="email"
             placeholder="john.doe@example.com"
-            className="h-11 bg-background transition-all focus-visible:ring-2 focus-visible:ring-primary/20"
+            className="h-11 bg-background transition-all"
           />
         </Field>
 
@@ -75,10 +77,23 @@ export const AccountStep = () => {
           </FieldLabel>
           <Input
             id="password"
+            value={values.user.password}
+            name="password"
+            onChange={(e) => functions.setUserData("password", e.target.value)}
             type="password"
             placeholder="••••••••"
-            className="h-11 bg-background transition-all focus-visible:ring-2 focus-visible:ring-primary/20"
+            className="h-11 bg-background transition-all"
           />
+        </Field>
+
+        <Field className="text-center">
+          <span>
+            {" "}
+            Have an account?{" "}
+            <a href="/login" className="text-primary hover:underline">
+              Sign in
+            </a>
+          </span>
         </Field>
       </FieldGroup>
     </FieldSet>

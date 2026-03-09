@@ -1,3 +1,4 @@
+import { useRegisterForm } from "@/hooks/useRegisterForm"
 import {
   Field,
   FieldDescription,
@@ -10,6 +11,7 @@ import {
 import { Input } from "./ui/input"
 
 export const PersonStep = () => {
+  const { functions, values } = useRegisterForm()
   return (
     <>
       <FieldSet className="animate-in duration-500 slide-in-from-right-10 fade-in">
@@ -36,9 +38,14 @@ export const PersonStep = () => {
             </FieldLabel>
             <Input
               id="firstname"
+              value={values.user.firstName}
+              name="firstName"
+              onChange={(e) =>
+                functions.setUserData("firstName", e.target.value)
+              }
               type="text"
               placeholder="John"
-              className="h-11 bg-background transition-all focus-visible:ring-2 focus-visible:ring-primary/20"
+              className="h-11 bg-background transition-all"
             />
           </Field>
 
@@ -51,9 +58,14 @@ export const PersonStep = () => {
             </FieldLabel>
             <Input
               id="lastname"
+              value={values.user.lastName}
+              name="lastName"
+              onChange={(e) =>
+                functions.setUserData("lastName", e.target.value)
+              }
               type="text"
               placeholder="Doe"
-              className="h-11 bg-background transition-all focus-visible:ring-2 focus-visible:ring-primary/20"
+              className="h-11 bg-background transition-all"
             />
           </Field>
         </FieldGroup>

@@ -1,3 +1,4 @@
+import { useRegisterForm } from "@/hooks/useRegisterForm"
 import {
   Field,
   FieldDescription,
@@ -10,6 +11,8 @@ import {
 import { Input } from "./ui/input"
 
 export const FinishStep = () => {
+  const { values, functions } = useRegisterForm()
+
   return (
     <>
       {" "}
@@ -37,10 +40,12 @@ export const FinishStep = () => {
               Email
             </FieldLabel>
             <Input
+              value={values.user.email}
+              onChange={(e) => functions.setUserData("email", e.target.value)}
               id="email"
               type="email"
               placeholder="john@example.com"
-              className="h-11 bg-background transition-all focus-visible:ring-2 focus-visible:ring-primary/20"
+              className="h-11 bg-background transition-all"
             />
           </Field>
 
@@ -52,10 +57,14 @@ export const FinishStep = () => {
               Password
             </FieldLabel>
             <Input
+              value={values.user.password}
+              onChange={(e) =>
+                functions.setUserData("password", e.target.value)
+              }
               id="password"
               type="password"
               placeholder="••••••••"
-              className="h-11 bg-background transition-all focus-visible:ring-2 focus-visible:ring-primary/20"
+              className="h-11 bg-background transition-all"
             />
           </Field>
 
@@ -69,9 +78,13 @@ export const FinishStep = () => {
               </FieldLabel>
               <Input
                 id="firstname"
+                value={values.user.firstName}
+                onChange={(e) =>
+                  functions.setUserData("firstName", e.target.value)
+                }
                 type="text"
                 placeholder="John"
-                className="h-11 bg-background transition-all focus-visible:ring-2 focus-visible:ring-primary/20"
+                className="h-11 bg-background transition-all"
               />
             </Field>
 
@@ -84,9 +97,13 @@ export const FinishStep = () => {
               </FieldLabel>
               <Input
                 id="lastname"
+                value={values.user.lastName}
+                onChange={(e) =>
+                  functions.setUserData("lastName", e.target.value)
+                }
                 type="text"
                 placeholder="Doe"
-                className="h-11 bg-background transition-all focus-visible:ring-2 focus-visible:ring-primary/20"
+                className="h-11 bg-background transition-all"
               />
             </Field>
           </div>
